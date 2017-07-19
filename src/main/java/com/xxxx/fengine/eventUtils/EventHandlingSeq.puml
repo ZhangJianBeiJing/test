@@ -1,0 +1,13 @@
+@startuml
+EventService->EventService:init（初始化方法）
+EventService->EventService:getInstance(获取唯一实例)
+EventService->EventService:loadHandlers(加载事件处理器：1.读取属性文件 2.实例化处理器 3.注册处理器)
+EventService.eventsConsumeThread->EventService.eventsConsumeThread:start(启动线程)
+EventService->EventService:consumeEvents(消费事件)
+IEventHandler->IEventHandler:onEvent(执行事件处理方法)
+IEventConsumedCallback->IEventConsumedCallback:onEventFinished(执行回调方法)
+TestEvent->TestEvent:new(创建事件)
+EventService->EventService:fireEvent(添加到事件队列)
+EventService->EventService:stop(停止init()的循环，关闭EventService线程池)
+
+@enduml
